@@ -1,0 +1,321 @@
+@prefix : <http://www.semanticweb.org/twahm/ontologies/2021/7/movie_ontology#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <http://www.semanticweb.org/twahm/ontologies/2021/7/movie_ontology> .
+
+<http://www.semanticweb.org/twahm/ontologies/2021/7/movie_ontology> rdf:type owl:Ontology ;
+                                                                     rdfs:comment "This is an ontology to gather data about movies and the languages they're subbed / dubbed in. We want to give details about where you can watch a movie, based on your country, and in which languages it is avalable on a specific streaming platform."@en .
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  http://www.semanticweb.org/twahm/ontologies/2021/7/movie_ontology#dubbed
+:dubbed rdf:type owl:ObjectProperty ;
+        rdfs:subPropertyOf owl:topObjectProperty ;
+        rdf:type owl:ReflexiveProperty ;
+        rdfs:domain :StreamInfo ;
+        rdfs:range :Language ;
+        rdfs:comment "describes the languages the specific stream is dubbed in"@en .
+
+
+###  http://www.semanticweb.org/twahm/ontologies/2021/7/movie_ontology#hasCountryOfOrigin
+:hasCountryOfOrigin rdf:type owl:ObjectProperty ;
+                    rdfs:subPropertyOf owl:topObjectProperty ;
+                    rdf:type owl:ReflexiveProperty ;
+                    rdfs:domain :Media ;
+                    rdfs:range :Country .
+
+
+###  http://www.semanticweb.org/twahm/ontologies/2021/7/movie_ontology#hasEpisodes
+:hasEpisodes rdf:type owl:ObjectProperty ;
+             rdfs:domain :Show ;
+             rdfs:range :Episode .
+
+
+###  http://www.semanticweb.org/twahm/ontologies/2021/7/movie_ontology#hasGenre
+:hasGenre rdf:type owl:ObjectProperty ;
+          rdfs:domain :Media ;
+          rdfs:range :Genre ;
+          rdfs:comment "Media has Genre"@en .
+
+
+###  http://www.semanticweb.org/twahm/ontologies/2021/7/movie_ontology#hasLanguage
+:hasLanguage rdf:type owl:ObjectProperty ;
+             rdfs:subPropertyOf owl:topObjectProperty ;
+             rdfs:domain :StreamInfo ;
+             rdfs:range :Language .
+
+
+###  http://www.semanticweb.org/twahm/ontologies/2021/7/movie_ontology#hasSubgenre
+:hasSubgenre rdf:type owl:ObjectProperty ;
+             rdfs:domain :Genre ;
+             rdfs:range :Genre .
+
+
+###  http://www.semanticweb.org/twahm/ontologies/2021/7/movie_ontology#provides
+:provides rdf:type owl:ObjectProperty ,
+                   owl:SymmetricProperty ,
+                   owl:TransitiveProperty ;
+          rdfs:domain :StreamingService ;
+          rdfs:range :StreamInfo ;
+          rdfs:comment "StreamingService provides StreamInfo"@en .
+
+
+###  http://www.semanticweb.org/twahm/ontologies/2021/7/movie_ontology#streams
+:streams rdf:type owl:ObjectProperty ;
+         rdfs:subPropertyOf owl:topObjectProperty ;
+         rdfs:domain :StreamInfo ;
+         rdfs:range :Media .
+
+
+###  http://www.semanticweb.org/twahm/ontologies/2021/7/movie_ontology#subbed
+:subbed rdf:type owl:ObjectProperty ,
+                 owl:ReflexiveProperty ;
+        rdfs:domain :StreamInfo ;
+        rdfs:range :Language .
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  http://www.semanticweb.org/twahm/ontologies/2021/7/movie_ontology#GenreName
+:GenreName rdf:type owl:DatatypeProperty ;
+           rdfs:subPropertyOf :genreProps ;
+           rdfs:domain :Genre ;
+           rdfs:range xsd:string .
+
+
+###  http://www.semanticweb.org/twahm/ontologies/2021/7/movie_ontology#ImDbNr
+:ImDbNr rdf:type owl:DatatypeProperty ;
+        rdfs:subPropertyOf :movieprops ;
+        rdfs:domain :Media ;
+        rdfs:range xsd:string .
+
+
+###  http://www.semanticweb.org/twahm/ontologies/2021/7/movie_ontology#LocationName
+:LocationName rdf:type owl:DatatypeProperty ;
+              rdfs:subPropertyOf :countryProps ;
+              rdfs:domain :Location ;
+              rdfs:range xsd:string .
+
+
+###  http://www.semanticweb.org/twahm/ontologies/2021/7/movie_ontology#StrServiceName
+:StrServiceName rdf:type owl:DatatypeProperty ;
+                rdfs:subPropertyOf :serviceProps ;
+                rdfs:domain :StreamingService ;
+                rdfs:range xsd:string .
+
+
+###  http://www.semanticweb.org/twahm/ontologies/2021/7/movie_ontology#StreamID
+:StreamID rdf:type owl:DatatypeProperty ;
+          rdfs:subPropertyOf :streamProps ;
+          rdfs:domain :StreamInfo ;
+          rdfs:range xsd:string .
+
+
+###  http://www.semanticweb.org/twahm/ontologies/2021/7/movie_ontology#countryISO
+:countryISO rdf:type owl:DatatypeProperty ;
+            rdfs:subPropertyOf :countryProps ;
+            rdfs:domain :Country ;
+            rdfs:range xsd:string .
+
+
+###  http://www.semanticweb.org/twahm/ontologies/2021/7/movie_ontology#countryProps
+:countryProps rdf:type owl:DatatypeProperty .
+
+
+###  http://www.semanticweb.org/twahm/ontologies/2021/7/movie_ontology#description
+:description rdf:type owl:DatatypeProperty ;
+             rdfs:subPropertyOf :movieprops ;
+             rdfs:domain :Media ;
+             rdfs:range xsd:string .
+
+
+###  http://www.semanticweb.org/twahm/ontologies/2021/7/movie_ontology#genreID
+:genreID rdf:type owl:DatatypeProperty ;
+         rdfs:subPropertyOf :genreProps ;
+         rdfs:domain :Genre ;
+         rdfs:range xsd:string .
+
+
+###  http://www.semanticweb.org/twahm/ontologies/2021/7/movie_ontology#genreProps
+:genreProps rdf:type owl:DatatypeProperty .
+
+
+###  http://www.semanticweb.org/twahm/ontologies/2021/7/movie_ontology#langID
+:langID rdf:type owl:DatatypeProperty ;
+        rdfs:subPropertyOf :langProps ;
+        rdfs:domain :Language ;
+        rdfs:range xsd:string .
+
+
+###  http://www.semanticweb.org/twahm/ontologies/2021/7/movie_ontology#langName
+:langName rdf:type owl:DatatypeProperty ;
+          rdfs:subPropertyOf :langProps ;
+          rdfs:domain :Language ;
+          rdfs:range xsd:string .
+
+
+###  http://www.semanticweb.org/twahm/ontologies/2021/7/movie_ontology#langProps
+:langProps rdf:type owl:DatatypeProperty .
+
+
+###  http://www.semanticweb.org/twahm/ontologies/2021/7/movie_ontology#logo
+:logo rdf:type owl:DatatypeProperty ;
+      rdfs:subPropertyOf :serviceProps ;
+      rdfs:domain :StreamingService .
+
+
+###  http://www.semanticweb.org/twahm/ontologies/2021/7/movie_ontology#movieprops
+:movieprops rdf:type owl:DatatypeProperty ;
+            rdfs:subPropertyOf owl:topDataProperty .
+
+
+###  http://www.semanticweb.org/twahm/ontologies/2021/7/movie_ontology#poster
+:poster rdf:type owl:DatatypeProperty ;
+        rdfs:subPropertyOf :movieprops ;
+        rdfs:domain :Media ;
+        rdfs:range xsd:string .
+
+
+###  http://www.semanticweb.org/twahm/ontologies/2021/7/movie_ontology#rating
+:rating rdf:type owl:DatatypeProperty ;
+        rdfs:subPropertyOf :movieprops ;
+        rdfs:domain :Media ;
+        rdfs:range xsd:string .
+
+
+###  http://www.semanticweb.org/twahm/ontologies/2021/7/movie_ontology#serviceProps
+:serviceProps rdf:type owl:DatatypeProperty .
+
+
+###  http://www.semanticweb.org/twahm/ontologies/2021/7/movie_ontology#streamLink
+:streamLink rdf:type owl:DatatypeProperty ;
+            rdfs:subPropertyOf :streamProps ;
+            rdfs:domain :StreamInfo ;
+            rdfs:range xsd:string .
+
+
+###  http://www.semanticweb.org/twahm/ontologies/2021/7/movie_ontology#streamProps
+:streamProps rdf:type owl:DatatypeProperty .
+
+
+###  http://www.semanticweb.org/twahm/ontologies/2021/7/movie_ontology#title
+:title rdf:type owl:DatatypeProperty ;
+       rdfs:subPropertyOf :movieprops ;
+       rdfs:domain :Media ;
+       rdfs:range xsd:string .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://www.semanticweb.org/twahm/ontologies/2021/7/movie_ontology#Country
+:Country rdf:type owl:Class ;
+         rdfs:subClassOf :Location .
+
+
+###  http://www.semanticweb.org/twahm/ontologies/2021/7/movie_ontology#Episode
+:Episode rdf:type owl:Class ;
+         rdfs:subClassOf :Media .
+
+
+###  http://www.semanticweb.org/twahm/ontologies/2021/7/movie_ontology#Genre
+:Genre rdf:type owl:Class .
+
+
+###  http://www.semanticweb.org/twahm/ontologies/2021/7/movie_ontology#Language
+:Language rdf:type owl:Class .
+
+
+###  http://www.semanticweb.org/twahm/ontologies/2021/7/movie_ontology#Location
+:Location rdf:type owl:Class .
+
+
+###  http://www.semanticweb.org/twahm/ontologies/2021/7/movie_ontology#Media
+:Media rdf:type owl:Class .
+
+
+###  http://www.semanticweb.org/twahm/ontologies/2021/7/movie_ontology#Movie
+:Movie rdf:type owl:Class ;
+       rdfs:subClassOf :Media .
+
+
+###  http://www.semanticweb.org/twahm/ontologies/2021/7/movie_ontology#Show
+:Show rdf:type owl:Class ;
+      rdfs:subClassOf :Media .
+
+
+###  http://www.semanticweb.org/twahm/ontologies/2021/7/movie_ontology#StreamInfo
+:StreamInfo rdf:type owl:Class .
+
+
+###  http://www.semanticweb.org/twahm/ontologies/2021/7/movie_ontology#StreamingService
+:StreamingService rdf:type owl:Class .
+
+
+#################################################################
+#    Individuals
+#################################################################
+
+###  http://www.semanticweb.org/twahm/ontologies/2021/7/movie_ontology#Comedy
+:Comedy rdf:type owl:NamedIndividual ,
+                 :Genre ;
+        :GenreName "Comedy"@en ,
+                   "Kommödie"@de ;
+        :genreID 123 .
+
+
+###  http://www.semanticweb.org/twahm/ontologies/2021/7/movie_ontology#FackJuGöthe
+:FackJuGöthe rdf:type owl:NamedIndividual ,
+                      :Movie ;
+             :hasCountryOfOrigin :Germany ;
+             :hasGenre :Comedy ;
+             :ImDbNr "1337"@de ;
+             :description "FackJuGöhte halt."@de ;
+             :poster "https://media1.jpc.de/image/w600/front/0/4011976887188.jpg"@de ;
+             :rating "8.5"@de ;
+             :title "FackJuGöhte"@de .
+
+
+###  http://www.semanticweb.org/twahm/ontologies/2021/7/movie_ontology#German
+:German rdf:type owl:NamedIndividual ,
+                 :Language ;
+        :langID 1 ;
+        :langName "Deutsch"@de ,
+                  "German"@en .
+
+
+###  http://www.semanticweb.org/twahm/ontologies/2021/7/movie_ontology#Germany
+:Germany rdf:type owl:NamedIndividual ,
+                  :Country ;
+         :LocationName "Deutschland"@de ,
+                       "Germany"@en ;
+         :countryISO "de" .
+
+
+###  http://www.semanticweb.org/twahm/ontologies/2021/7/movie_ontology#Netflix
+:Netflix rdf:type owl:NamedIndividual ,
+                  :StreamingService ;
+         :provides <https://www.netflix.com/title/80014999> ;
+         :StrServiceName "Netflix"@en ;
+         :logo "some logo url" .
+
+
+###  https://www.netflix.com/title/80014999
+<https://www.netflix.com/title/80014999> rdf:type owl:NamedIndividual ,
+                                                  :StreamInfo ;
+                                         :dubbed :German ;
+                                         :streams :FackJuGöthe ;
+                                         :subbed :German ;
+                                         :StreamID 12 ;
+                                         :streamLink "https://www.netflix.com/title/80014999"@de .
+
+
+###  Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi
