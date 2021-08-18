@@ -3,5 +3,6 @@
 
 .chromedriver.exe
 .geckodriver.exe
+.geckodriver.log
 
 .Credentials.py
